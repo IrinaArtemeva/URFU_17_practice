@@ -23,3 +23,17 @@ data = {
 }
 
 df = pd.DataFrame(data)
+
+def calculate_risk(row):
+    if row["Критичность"] == "Высокая" and row["Ошибки в истории"] > 4:
+        return "Высокий"
+    elif row["Критичность"] == "Средняя" and row["Ошибки в истории"] > 2:
+        return "Средний"
+    else:
+        return "Низкий"
+
+df["Уровень риска"] = df.apply(calculate_risk, axis=1)
+
+df.to_csv("synthetic_data.csv", index=False, encoding="utf-8-sig")
+
+df
