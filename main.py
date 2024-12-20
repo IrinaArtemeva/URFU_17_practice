@@ -4,23 +4,25 @@ from pandas import json_normalize
 import time
 import datetime
 
+
 def get_URI(query: str, page_num: str, date: str, API_KEY: str) -> str:
     """
     Возвращает URL для статей по запросу, номеру страницы и дате.
     """
     # Формируем URI с параметрами запроса
     URI = (
-        f'https://api.nytimes.com/svc/search/v2/articlesearch.json?q={query}'
-        f'&page={page_num}&begin_date={date}&end_date={date}'
-        f'&api-key={API_KEY}'
+        f"https://api.nytimes.com/svc/search/v2/articlesearch.json?q={query}"
+        f"&page={page_num}&begin_date={date}&end_date={date}"
+        f"&api-key={API_KEY}"
     )
     return URI
+
 
 # Создаем датафрейм для хранения всех записей
 df = pd.DataFrame()
 
 # Получаем текущую дату
-current_date = datetime.datetime.now().strftime('%Y%m%d')
+current_date = datetime.datetime.now().strftime("%Y%m%d")
 
 # Собираем данные со всех доступных страниц
 page_num = 1
@@ -28,10 +30,10 @@ page_num = 1
 while page_num < 6:
     # Получаем URI с записями, относящимися к COVID на текущую дату
     URI = get_URI(
-        query='COVID',
+        query="COVID",
         page_num=str(page_num),
         date=current_date,
-        API_KEY='cCUIGMNHzrJMUkZaKf4Y11r5tTBS0qpJ',
+        API_KEY="cCUIGMNHzrJMUkZaKf4Y11r5tTBS0qpJ",
     )
 
     # Делаем запрос по URI
@@ -58,6 +60,7 @@ while page_num < 6:
     # Переходим на следующую страницу
     page_num += 1
 
+# Вывод информации о собранном датафрейме
 df.info()
 print(df)
-print('this')
+print("this")
