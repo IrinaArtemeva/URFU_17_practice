@@ -33,8 +33,7 @@ jobs:
     # 5. Запуск randomizer.py
     - name: Run randomizer
       id: randomizer
-      run: |
-        python randomizer.py
+      run: python randomizer.py
       continue-on-error: false  # Прерывание, если рандомайзер вернет ошибку
 
     # 6. Условное выполнение скриптов в зависимости от результата randomizer.py
