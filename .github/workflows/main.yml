@@ -35,14 +35,14 @@ jobs:
       continue-on-error: false  # Прерывание, если рандомайзер вернет ошибку
 
     # Шаг 6: Условные действия на основе уровня риска
-      - name: Action for Low Risk
-        if: ${{ steps.predict-risk.outcome == 'success' && steps.predict-risk.conclusion == 0 }}
-        run: echo "Низкий риск. Выполняем действия для низкого риска."
+    - name: Action for Low Risk
+      if: ${{ steps.predict-risk.outcome == 'success' && steps.predict-risk.conclusion == 0 }}
+      run: echo "Низкий риск. Выполняем действия для низкого риска."
 
-      - name: Action for Medium Risk
-        if: ${{ steps.predict-risk.outcome == 'success' && steps.predict-risk.conclusion == 1 }}
-        run: echo "Средний риск. Выполняем действия для среднего риска."
+    - name: Action for Medium Risk
+      if: ${{ steps.predict-risk.outcome == 'success' && steps.predict-risk.conclusion == 1 }}
+      run: echo "Средний риск. Выполняем действия для среднего риска."
 
-      - name: Action for High Risk
-        if: ${{ steps.predict-risk.outcome == 'success' && steps.predict-risk.conclusion == 2 }}
-        run: echo "Высокий риск. Выполняем действия для высокого риска."
+    - name: Action for High Risk
+      if: ${{ steps.predict-risk.outcome == 'success' && steps.predict-risk.conclusion == 2 }}
+      run: echo "Высокий риск. Выполняем действия для высокого риска."
