@@ -1,0 +1,51 @@
+name: Randomizer Workflow
+
+on:
+  pull_request:
+    paths:
+      - "main.py"  # Триггерится только при изменении файла main.py ок да
+
+jobs:
+  lint_and_run:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout репозитория
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # 2. Установка Python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+
+    # 3. Установка зависимостей (flake8 для линтинга)
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8
+
+    # 4. Линтинг main.py
+    - name: Run linter
+      run: flake8 main.py
+
+    # 5. Запуск randomizer.py
+    - name: Run randomizer
+      id: randomizer
+      run: |
+        python randomizer.py
+      continue-on-error: false  # Прерывание, если рандомайзер вернет ошибку
+
+    # 6. Условное выполнение скриптов в зависимости от результата randomizer.py
+    - name: Run script 1
+      if: ${{ steps.randomizer.outcome == 'success' && steps.randomizer.outputs.exit_code == 1 }}
+      run: python script1.py
+
+    - name: Run script 2
+      if: ${{ steps.randomizer.outcome == 'success' && steps.randomizer.outputs.exit_code == 2 }}
+      run: python script2.py
+
+    - name: Run script 3
+      if: ${{ steps.randomizer.outcome == 'success' && steps.randomizer.outputs.exit_code == 3 }}
+      run: python script3.py
