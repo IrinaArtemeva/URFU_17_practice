@@ -1,9 +1,10 @@
 
 import requests
-import json
 import pandas as pd
 from pandas import json_normalize
-from sqlalchemy import create_engine
+#from sqlalchemy import create_engine
+import time
+import datetime
 
 
 def get_URI(query: str, page_num: str, date: str, API_KEY: str) -> str:
@@ -20,9 +21,6 @@ def get_URI(query: str, page_num: str, date: str, API_KEY: str) -> str:
 
     return URI
 
-
-import time
-import datetime
 
 # создаем датафрейм для хранения всех записей
 df = pd.DataFrame()
