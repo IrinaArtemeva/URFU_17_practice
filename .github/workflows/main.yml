@@ -2,9 +2,7 @@ name: Randomizer Workflow
 
 on:
   pull_request:
-    paths:
-      - "main.py"  # Триггерится только при изменении файла main.py ок да
-
+  
 jobs:
   lint_and_run:
     runs-on: ubuntu-latest
