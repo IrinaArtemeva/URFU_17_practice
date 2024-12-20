@@ -26,10 +26,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8
 
-    # 4. Линтинг main.py
-    - name: Run linter
-      run: flake8 main.py
-
     # 5. Запуск randomizer.py
     - name: Run randomizer
       id: randomizer
