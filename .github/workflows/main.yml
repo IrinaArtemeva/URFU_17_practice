@@ -34,14 +34,18 @@ jobs:
       run: python randomizer.py
       continue-on-error: false  # Прерывание, если рандомайзер вернет ошибку
 
-    # 6. Условное выполнение скриптов в зависимости от результата randomizer.py
-    - name: Run script 1
-      if: ${{ steps.randomizer.outcome == 'success' && steps.randomizer.outputs.exit_code == 1 }}
-      run: python script1.py
+    # Шаг 6: Условные действия на основе уровня риска
+      - name: Action for Low Risk
+        if: ${{ steps.predict-risk.outcome == 'success' && steps.predict-risk.conclusion == 0 }}
+        run: echo "Низкий риск. Выполняем действия для низкого риска."
 
-    - name: Run script 2
-      if: ${{ steps.randomizer.outcome == 'success' && steps.randomizer.outputs.exit_code == 2 }}
-      run: python script2.py
+      - name: Action for Medium Risk
+        if: ${{ steps.predict-risk.outcome == 'success' && steps.predict-risk.conclusion == 1 }}
+        run: echo "Средний риск. Выполняем действия для среднего риска."
+
+      - name: Action for High Risk
+        if: ${{ steps.predict-risk.outcome == 'success' && steps.predict-risk.conclusion == 2 }}
+        run: echo "Высокий риск. Выполняем действия для высокого риска."
 
     - name: Run script 3
       if: ${{ steps.randomizer.outcome == 'success' && steps.randomizer.outputs.exit_code == 3 }}
