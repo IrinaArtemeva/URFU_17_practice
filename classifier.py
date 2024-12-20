@@ -65,3 +65,11 @@ new_release_metrics = [0.8, 0.6, 0.7, 0.4, 0.9, 0.3, 0.8, 0.5, 0.6, 0.7]
 predicted_risk = predict_risk(new_release_metrics)
 print(f"Предсказанный уровень риска: {predicted_risk}")
 
+def main():
+    number = predicted_risk
+    print(number)  # Выводим его для чтения в GitHub Actions
+    sys.exit(number)
+
+if __name__ == "__main__":
+    main()
+
