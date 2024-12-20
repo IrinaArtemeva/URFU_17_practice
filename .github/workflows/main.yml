@@ -46,7 +46,3 @@ jobs:
       - name: Action for High Risk
         if: ${{ steps.predict-risk.outcome == 'success' && steps.predict-risk.conclusion == 2 }}
         run: echo "Высокий риск. Выполняем действия для высокого риска."
-
-    - name: Run script 3
-      if: ${{ steps.randomizer.outcome == 'success' && steps.randomizer.outputs.exit_code == 3 }}
-      run: python script3.py
